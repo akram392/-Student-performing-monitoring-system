@@ -1,0 +1,31 @@
+.btn-group {
+	margin: 0px 3px;
+}
+.btn-group .fa-edit {
+	color: #218838;
+	margin-right: 5px;
+}
+.btn-group .fa-trash {
+	color: #c82333;
+}
+.avater-img {
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+}
+#anchor {
+	color: rgb(196, 237, 13);
+	text-decoration: underline;
+	/* cursor: auto; */
+} 
+#anchor:hover {
+    color: white;
+}
+#anchors {
+	color: rgb(196, 237, 13);
+	text-decoration: underline;
+	/* cursor: auto; */
+} 
+#anchors:hover {
+    color: white;
+}
