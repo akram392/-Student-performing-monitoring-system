@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Student Performance Monitoring System</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -108,13 +108,35 @@
           <div class="col-md-8">
             <!-- MAP & BOX PANE -->
             <!-- /.card -->
-            <div class="row">
-              <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
 
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
               </div>
-              <!-- /.col -->
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="d-md-flex">
+                  <div class="p-1 flex-fill" style="overflow: hidden">
+                    <!-- Map will be created here -->
+                    <div id="world-map-markers" style="height: 325px;  overflow: hidden">
+                      <div class="map ml-5 mt-5">
+                        <h1>WELCOME TO OUR DASHBOARD</h1>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div><!-- /.d-md-flex -->
+              </div>
+              <!-- /.card-body -->
             </div>
-            <!-- /.row -->
           </div>
           <!-- /.col -->
 
