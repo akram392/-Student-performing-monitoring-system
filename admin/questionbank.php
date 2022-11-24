@@ -50,6 +50,7 @@
                         <th scope="col">Semester</th>
                         <th scope="col">Question Bank</th>
                         <th scope="col">Exam Type</th>
+                        <th scope="col">Difficulty Lvl.</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -79,7 +80,13 @@
                             <td><?php echo $semester; ?></td>
                             <td><a href="dist/img/users/<?php echo $question; ?>" target="_blank" id="anchor"><?php echo $question; ?></a></td>
                             <td><?php echo $exam_type; ?></td>
-                            <!-- <td></td> -->
+                            <td>
+                              <div class="btn-group">
+                                <a href="questionbank.php?do=Question&Calculate=<?php echo $id; ?>">
+                                  <i class="fas fa-calculator"></i>
+                                </a>
+                              </div>
+                            </td>
 
                             <td>
                               <div class="btn-group">
@@ -129,6 +136,163 @@
                 </div>
 
               </div>
+
+              <div class="col-lg-12 mt-5">
+
+                  <div class="card card-danger">
+                    <div class="card-header">
+                      <h3 class="card-title">Check Bloom's Taxonomy Level For Question </h3>
+                    </div>
+                    <div class="card-body">
+                      <?php
+                        
+                        $category1 = array("choose","define","find","how","label","list","match","name","omit","recall","relate","select","show","spell","tell","what","when","where","which","who","why");
+                        $category2 = array("compare","contrast","demonstrate","explain","extend","illustrate","infer","interpret","outline","relate","rephrase","show","summarize","translate");
+                        $category3 = array("apply","build","choose","construct","develop","experiment with","identify","interview","make use of","model","organise","plan","select","solve","utilize");
+                        $category4 = array("analyze","assume","categorize","classify","conclusion","contrast","discover","dissect","distinguish","divide","examine","function","interence","inspect","list","motive","relationships","simplify","survey","take part in","test for","theme");
+                        $category5 = array("agree","appraise","assess","award","choose","conclude","criteria","criticize","decide","deduct","defend","determine","disprove","estimate","evaluate","explain","importance","influence","interpret","judge","justify","mark","measure","opinion","perceive","prioritize","prove","rate","recommend","rule on","select","support","value");
+                        $category6 = array("adapt","bulid","change","choose","combine","compile","compose","construct","create","delete","design","develop","discuss","elaborate","estimate","formulate","happen","imagine","improve","invent","make up","maximize","minimize","modify","original","originate","plan","predict","propose","solution","solve","suppose","test","theory");
+                        $count1 = 0; $count2 = 0; $count3 = 0; $count4 = 0; $count5 = 0; $count6 = 0;
+                        
+                        $q1 = array("how", "list", "infer", "choose", "classify", "conclude", "combine", "compose","delete");
+
+                        if (isset($_GET['Calculate'])) {
+                          # code...
+                          $cal_id = $_GET['Calculate'];
+                          $sql = " SELECT * FROM questionbank WHERE id = $cal_id ";
+                          $all_word = mysqli_query($db, $sql);
+    
+                          while ($rows = mysqli_fetch_array($all_word)) {
+                            # code...
+                            $word_id        = $rows['id'];
+                            $course_id      = $rows['course_id'];
+                            $word           = $rows['word'];
+                            $exam_type      = $rows['exam_type'];
+                          }
+
+                          echo "Course ID: " . $course_id . "<br>";
+                          echo "Exam Type: " . $exam_type . "<br>";
+
+                          $words = explode(' ', $word);
+
+                          for ($i=0; $i < sizeof($category1); $i++) { 
+                            # code...
+                            for ($j=0; $j < sizeof($words); $j++) { 
+                              # code...
+                              if($category1[$i] == $words[$j]){
+                                $count1++;
+                              }
+                              
+                            }
+                          }
+                          for ($i=0; $i < sizeof($category2); $i++) { 
+                            # code...
+                            for ($j=0; $j < sizeof($words); $j++) { 
+                              # code...
+                              if($category2[$i] == $words[$j]){
+                                $count2++;
+                              }
+                              
+                            }
+                          }
+                          for ($i=0; $i < sizeof($category3); $i++) { 
+                            # code...
+                            for ($j=0; $j < sizeof($words); $j++) { 
+                              # code...
+                              if($category3[$i] == $words[$j]){
+                                $count3++;
+                              }
+                              
+                            }
+                          }
+                          for ($i=0; $i < sizeof($category4); $i++) { 
+                            # code...
+                            for ($j=0; $j < sizeof($words); $j++) { 
+                              # code...
+                              if($category4[$i] == $words[$j]){
+                                $count4++;
+                              }
+                              
+                            }
+                          }
+                          for ($i=0; $i < sizeof($category5); $i++) { 
+                            # code...
+                            for ($j=0; $j < sizeof($words); $j++) { 
+                              # code...
+                              if($category5[$i] == $words[$j]){
+                                $count5++;
+                              }
+                              
+                            }
+                          }
+                          for ($i=0; $i < sizeof($category6); $i++) { 
+                            # code...
+                            for ($j=0; $j < sizeof($words); $j++) { 
+                              # code...
+                              if($category6[$i] == $words[$j]){
+                                $count6++;
+                              }
+                              
+                            }
+                          }
+
+                          // echo "Count: " . $count1. "\n". $count2. "\n" . $count3. "\n" . $count4. "\n" . $count5. "\n" . $count6. "<br>";
+                        
+                          $sum = array("$count1", "$count2", "$count3", "$count4", "$count5", "$count6");
+                          $max = (max(array("$count1", "$count2", "$count3", "$count4", "$count5", "$count6")));
+
+                          $percentage = ($max/array_sum($sum))*100 ;
+                          
+                          if ($count1 == $max) {
+                            # code...
+                            echo "Difficulty Level: 1 (Remembering)" . "<br>";
+                          }
+                          elseif ($count2 == $max) {
+                            # code...
+                            echo "Difficulty Level: 2 (Understanding)" . "<br>";
+                          }
+                          elseif ($count3 == $max) {
+                            # code...
+                            echo "Difficulty Level: 3 (Applying)" . "<br>";
+                          }
+                          elseif ($count4 == $max) {
+                            # code...
+                            echo "Difficulty Level: 4 (Analyzing)" . "<br>";
+                          }
+                          elseif ($count5 == $max) {
+                            # code...
+                            echo "Difficulty Level: 5 (Evaluating)" . "<br>";
+                          }
+                          elseif ($count6 == $max) {
+                            # code...
+                            echo "Difficulty Level: 6 (Creating)" . "<br>";
+                          }
+                          else echo "Not Found." . "<br>";
+
+                          echo "Difficulty Percentage: " . round($percentage, 2) . "%";
+
+                        }
+                        
+
+                        // for ($i=0; $i < sizeof($category1); $i++) { 
+                        //   # code...
+                        //   $arrayWord = $category1[i];
+                        //   // $wordSearch = " SELECT * FROM wordTable WHERE word LIKE '%$arrayWord%' ";
+                        //   echo $arrayWord;
+
+                        //   // if($mys == $arrayWord){
+                        //   //   $count1++;
+                        //   // }
+                        //   // else continue ;
+                        // }
+
+                      ?>
+                    </div>
+                    <!-- card body end -->
+                 </div>
+                 <!-- card end -->
+
+              </div>
             </div>
           </div>
         </section>
@@ -167,7 +331,12 @@
                                 <option value="Spring22">Spring22</option>
                                 <option value="Autumn22">Autumn22</option>
                               </select>
-                          </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Question Word</label>
+                                <input type="text" class="form-control" name="word" autocomplete="off">
+                            </div>
 
                           </div>
 
@@ -212,6 +381,7 @@
           $section        = $_POST['section'];
           $semester       = $_POST['semester'];
           $exam_type      = $_POST['examtype'];
+          $question_word  = $_POST['word'];
 
  
           $pdf       = $_FILES['pdf']['name'];
@@ -222,7 +392,7 @@
 
           move_uploaded_file($tmp_pdf, "dist/img/users/" . $pdfFile);
 
-          $sql = " INSERT INTO questionbank( course_id, section, semester, question, exam_type ) values( '$course_id', '$section', '$semester', '$pdfFile', '$exam_type' ) ";
+          $sql = " INSERT INTO questionbank( course_id, section, semester, question, exam_type, word ) values( '$course_id', '$section', '$semester', '$pdfFile', '$exam_type', '$question_word' ) ";
           $uploadInfo = mysqli_query($db, $sql);
 
           if ($uploadInfo) {
@@ -251,6 +421,7 @@
             $semester       = $row['semester'];
             $question       = $row['question'];
             $exam_type      = $row['exam_type'];
+            $question_word  = $row['word'];
             ?>
             <section class="content">
               <div class="container-fluid">
@@ -282,6 +453,11 @@
                                     <option value="Spring22" <?php if(!empty($semester)){echo "Selected";} ?>>Spring22</option>
                                     <option value="Autumn22" <?php if(!empty($semester)){echo "Selected";} ?>>Autumn22</option>
                                   </select>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="">Question Word</label>
+                                  <input type="text" class="form-control" name="word" autocomplete="off" value="<?php echo $question_word; ?>">
                               </div>
 
                             </div>
@@ -346,6 +522,7 @@
           $section          = $_POST['section'];
           $semester         = $_POST['semester'];
           $exam_type        = $_POST['examtype'];
+          $question_word    = $_POST['word'];
 
  
           $pdf       = $_FILES['pdf']['name'];
@@ -360,7 +537,7 @@
 
               move_uploaded_file($tmp_pdf, "dist/img/users/" . $pdfFile);
 
-              $sql = "UPDATE questionbank SET course_id = '$course_id', section = '$section', semester = '$semester', question = '$pdfFile' WHERE id = '$the_update_id' ";
+              $sql = "UPDATE questionbank SET course_id = '$course_id', section = '$section', semester = '$semester', question = '$pdfFile', word = '$question_word' WHERE id = '$the_update_id' ";
               
               $update_info = mysqli_query($db, $sql);
 
@@ -373,7 +550,7 @@
               }
           }  
           else {
-            $sql = "UPDATE questionbank SET course_id = '$course_id', section = '$section', semester = '$semester' WHERE id = '$the_update_id' ";
+            $sql = "UPDATE questionbank SET course_id = '$course_id', section = '$section', semester = '$semester', word = '$question_word' WHERE id = '$the_update_id' ";
               
               $update_info = mysqli_query($db, $sql);
 

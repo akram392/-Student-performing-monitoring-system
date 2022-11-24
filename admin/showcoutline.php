@@ -42,6 +42,7 @@
                         <th scope="col">Section</th>
                         <th scope="col">Semester</th>
                         <th scope="col">Course Outline</th>
+                        <th scope="col">Download</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -70,6 +71,13 @@
                             <td><?php echo $semester; ?></td>
                             <td><a href="dist/img/users/<?php echo $course_outline; ?>" target="_blank" id="anchors"><?php echo $course_outline; ?></a></td>
                             <!-- <td></td> -->
+                            <td>
+                              <div class="btn-group">
+                                <a href="singlepdf.php?PDF=<?php echo $id; ?>">
+                                  <i class="fas fa-download"></i>
+                                </a>
+                              </div>
+                            </td>
 
                           </tr>
                           <?php
@@ -86,8 +94,22 @@
                 <!-- card end -->
 
                 <div class="col-lg-12">
-                  <a href="courseoutline.php?do=Add" class="btn btn-success btn-block"> All Course Outline Download Here</a>
+                  <a href="allpdf.php" class="btn btn-success btn-block"> All Course Outline Download Here</a>
                 </div>
+
+                <?php
+                        
+                  $fileArray = array("442438Midterm Exam-Spring 22.pdf","989908cse-313_aut21_mid (1).pdf");
+                  $datadir = "studentPerformance/admin/dist/img/users/";
+                  $outputName = $datadir."merged.pdf";
+                  
+                  $cmd = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$outputName ";
+                  //Add each pdf file to the end of the command
+                  foreach($fileArray as $file) {
+                      $cmd .= $file." ";
+                  }
+                  $result = shell_exec($cmd); 
+                ?>
 
               </div>
             </div>

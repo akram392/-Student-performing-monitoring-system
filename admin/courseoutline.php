@@ -49,6 +49,7 @@
                         <th scope="col">Section</th>
                         <th scope="col">Semester</th>
                         <th scope="col">Course Outline</th>
+                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -58,7 +59,6 @@
                         $sql = " SELECT * FROM courseoutline ";
                         $all_course_outline = mysqli_query($db, $sql);
                         $i = 0;
-                        $fileArray = [];
 
                         while ($row = mysqli_fetch_assoc($all_course_outline)) {
                           // code...
@@ -116,18 +116,6 @@
 
                       ?>
 
-                      <?php
-                        $datadir = "dist/img/users/";
-                        $outputName = $datadir."merged.pdf";
-                        
-                        $cmd = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$outputName ";
-                        //Add each pdf file to the end of the command
-                        foreach($fileArray as $file) {
-                            $cmd .= $file." ";
-                        }
-                        $result = shell_exec($cmd); 
-                      ?>
-
                     </tbody>
                   </table>
 
@@ -161,29 +149,51 @@
                       <form action="courseoutline.php?do=Insert" method="POST" enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="">Course ID</label>
-                              <input type="text" class="form-control" name="courseid" autocomplete="off">
-                            </div>
+                              <div class="form-group">
+                                <label for="">Course ID</label>
+                                <input type="text" class="form-control" name="courseid" autocomplete="off">
+                              </div>
 
-                            <div class="form-group">
-                                <label for="">Section</label>
-                                <input type="text" class="form-control" name="section" autocomplete="off">
-                            </div>
+                              <div class="form-group">
+                                  <label for="">Section</label>
+                                  <input type="text" class="form-control" name="section" autocomplete="off">
+                              </div>
 
-                            <div class="form-group">
-                              <label for="">Semester</label>
-                              <select class="form-control" name="semester" id="">
-                                <option value="">Please select semester</option>
-                                <option value="Summer22">Summer22</option>
-                                <option value="Spring22">Spring22</option>
-                                <option value="Autumn22">Autumn22</option>
-                              </select>
-                          </div>
+                              <div class="form-group">
+                                <label for="">Semester</label>
+                                <select class="form-control" name="semester" id="">
+                                  <option value="">Please select semester</option>
+                                  <option value="Summer22">Summer22</option>
+                                  <option value="Spring22">Spring22</option>
+                                  <option value="Autumn22">Autumn22</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="">Course Title</label>
+                                  <input type="text" class="form-control" name="course_title" autocomplete="off">
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="">Credit Value</label>
+                                  <input type="text" class="form-control" name="credit_value" autocomplete="off">
+                              </div>
+
+                              <div class="form-group">
+                                <label for="">Duration</label>
+                                <input type="text" class="form-control" name="duration" autocomplete="off">
+                            </div>
+                            
 
                           </div>
 
                         <div class="col-md-6">
+
+                          <div class="form-group">
+                              <label for="">Course Description</label>
+                              <textarea class="form-control" name="course_desc" autocomplete="off" rows="4"></textarea>
+
+                          </div>
 
                           <div class="form-group">
                               <label for="">Course Outline</label>
@@ -212,7 +222,11 @@
           // code...
           $course_id      = $_POST['courseid'];
           $section        = $_POST['section'];
-          $semester       = $_POST['semester'];
+          $course_title   = $_POST['course_title'];
+          $credit_value   = $_POST['credit_value'];
+          $duration       = $_POST['duration'];
+          $course_desc    = $_POST['course_desc'];
+
 
  
           $pdf       = $_FILES['pdf']['name'];
@@ -223,7 +237,7 @@
 
           move_uploaded_file($tmp_pdf, "dist/img/users/" . $pdfFile);
 
-          $sql = " INSERT INTO courseoutline( course_id, section, semester, course_outline ) values( '$course_id', '$section', '$semester', '$pdfFile' ) ";
+          $sql = " INSERT INTO courseoutline( course_id, section, semester, course_outline, course_title, credit_value, duration, course_desc ) values( '$course_id', '$section', '$semester', '$pdfFile', '$course_title', '$credit_value', '$duration', '$course_desc' ) ";
           $uploadInfo = mysqli_query($db, $sql);
 
           if ($uploadInfo) {
@@ -251,6 +265,10 @@
             $section            = $row['section'];
             $semester           = $row['semester'];
             $course_outline     = $row['course_outline'];
+            $course_title       = $row['course_title'];
+            $credit_value       = $row['credit_value'];
+            $duration           = $row['duration'];
+            $course_desc        = $row['course_desc'];
             ?>
             <section class="content">
               <div class="container-fluid">
@@ -284,31 +302,52 @@
                                   </select>
                               </div>
 
+                              <div class="form-group">
+                                  <label for="">Course Title</label>
+                                  <input type="text" class="form-control" name="course_title" autocomplete="off" value="<?php echo $course_title; ?>">
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="">Credit Value</label>
+                                  <input type="text" class="form-control" name="credit_value" autocomplete="off" value="<?php echo $credit_value; ?>">
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="">Duration</label>
+                                 <input type="text" class="form-control" name="duration" autocomplete="off" value="<?php echo $duration; ?>">
+                             </div>
+
                             </div>
 
                           <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Course Outline</label>
-                                <?php
-                                  if ( !empty($course_outline)) {
-                                      // code...
-                                      ?>
-                                      <embed src="dist/img/users/<?php echo $course_outline; ?>" type="">
-                                      <?php
-                                    }
-                                    else {
-                                      ?>
-                                      <embed src="dist/img/users/default.pdf" type="">
-                                      <?php
-                                    }
-                                ?>
-                                <input type="file" class="form-control-file" name="pdf">
-                            </div>
 
-                            <div class="form-group">
-                              <input type="hidden" name="update" value="<?php echo $edit_id; ?>">
-                              <input type="submit" class="btn btn-primary" value="Update Course Outline Info Here" name="save">
-                            </div>
+                              <div class="form-group">
+                                  <label for="">Course Description</label>
+                                  <textarea class="form-control" name="course_desc" autocomplete="off" rows="4"><?php echo $course_desc; ?></textarea>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="">Course Outline</label>
+                                  <?php
+                                    if ( !empty($course_outline)) {
+                                        // code...
+                                        ?>
+                                        <embed src="dist/img/users/<?php echo $course_outline; ?>" type="">
+                                        <?php
+                                      }
+                                      else {
+                                        ?>
+                                        <embed src="dist/img/users/default.pdf" type="">
+                                        <?php
+                                      }
+                                  ?>
+                                  <input type="file" class="form-control-file" name="pdf">
+                              </div>
+
+                              <div class="form-group">
+                                <input type="hidden" name="update" value="<?php echo $edit_id; ?>">
+                                <input type="submit" class="btn btn-primary" value="Update Course Outline Info Here" name="save">
+                              </div>
 
                           </div>
                          </div>
@@ -333,6 +372,10 @@
             $course_id        = $_POST['courseid'];
             $section          = $_POST['section'];
             $semester         = $_POST['semester'];
+            $course_title     = $_POST['course_title'];
+            $credit_value     = $_POST['credit_value'];
+            $duration         = $_POST['duration'];
+            $course_desc      = $_POST['course_desc'];
   
    
             $pdf       = $_FILES['pdf']['name'];
@@ -347,7 +390,7 @@
   
                 move_uploaded_file($tmp_pdf, "dist/img/users/" . $pdfFile);
   
-                $sql = "UPDATE courseoutline SET course_id = '$course_id', section = '$section', semester = '$semester', course_outline = '$pdfFile' WHERE id = '$the_update_id' ";
+                $sql = "UPDATE courseoutline SET course_id = '$course_id', section = '$section', semester = '$semester', course_outline = '$pdfFile', course_title = '$course_title', credit_value = '$credit_value', duration = '$duration', course_desc = '$course_desc' WHERE id = '$the_update_id' ";
                 
                 $update_info = mysqli_query($db, $sql);
   
