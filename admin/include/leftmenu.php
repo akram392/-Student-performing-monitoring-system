@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin Panel</span>
+      <span class="brand-text font-weight-light">SPMS</span>
     </a>
 
     <!-- Sidebar -->
@@ -11,10 +11,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="dist/img/users/<?php echo $_SESSION['image'] ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Md. Akram Hossain</a>
+          <a href="#" class="d-block"><?php echo $_SESSION['name'] ?></a>
         </div>
       </div>
 
@@ -44,6 +44,40 @@
             </a>           
           </li>
           
+
+          <?php
+            
+            if ($_SESSION['role'] == 1) {
+              // code...
+              ?>
+              
+              <!-- user manage menu start here -->
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <p>
+                    User Management
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="users.php?do=Manage" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Manage User</p>
+                    </a>
+                  </li>
+                </ul>
+              </li> 
+
+              <?php
+            }
+
+          ?> 
+
+          <!-- student results menu start here -->
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -71,8 +105,15 @@
                   <p>CO & PO Achieve Chart</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="enrollment.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Student Enrollment Analysis</p>
+                </a>
+              </li>
             </ul>
           </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -111,7 +152,7 @@
           </li> -->
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="logout.php" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Sign Out</p>
             </a>

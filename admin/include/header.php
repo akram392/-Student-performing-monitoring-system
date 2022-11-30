@@ -1,7 +1,14 @@
 <?php
 
-  include"include/db.php";
+  include "include/db.php";
   ob_start();
+  session_start();
+
+  if ( !$_SESSION['email'] ) {
+    // code...
+    header("Location: index.php");   // aikane session use korechi jate onno page jate na pare.
+                                    // exmple: index.php page dashboard.php na jate pare.
+  }
 
 ?>
 <!DOCTYPE html>
