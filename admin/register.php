@@ -5,105 +5,44 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>News Panel | Registration Page</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition register-page">
-<div class="register-box">
-  <div class="register-logo">
-    <a href="index.php"><b>Blog</b> REGISTRATION</a>
-  </div>
-
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Register a new User</p>
-
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Animated Register Form | SPMS</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body id="particles-js" >
+    <div class="center">
+      <h1><b>SPMS</b> | Register</h1>
       <form action="" method="POST">
-        <div class="input-group mb-3">
+        <div class="txt_field">
           <input type="text" class="form-control" placeholder="Full Name" name="fullname" autocomplete="off">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
+          <span></span>
         </div>
-        <div class="input-group mb-3">
+        <div class="txt_field">
           <input type="text" class="form-control" placeholder="User Name" name="username" autocomplete="off">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
+          <span></span>
         </div>
-        <div class="input-group mb-3">
+        <div class="txt_field">
           <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
+          <span></span>
         </div>
-        <div class="input-group mb-3">
+        <div class="txt_field">
           <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
+          <span></span>
         </div>
-        <div class="input-group mb-3">
+        <div class="txt_field">
           <input type="password" class="form-control" placeholder="Retype Password" name="cpassword" autocomplete="off">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
+          <span></span>
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <input type="submit" class="btn btn-primary btn-block" name="register" value="Register">
-          </div>
-          <!-- /.col -->
+        <input type="submit" class="btn btn-primary btn-block" name="register" value="Register">
+        <div class="signup_link">
+          You are already member. <a href="index.php">Login</a>
         </div>
       </form>
-
-      <!-- <div class="social-auth-links text-center">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a>
-      </div> -->
-
-      <a href="index.php" class="text-center">I already have a membership</a>
     </div>
-    <!-- /.form-box -->
-    <?php
+
+     <?php
       
       if (isset($_POST['register'])) {
         // code...
@@ -116,7 +55,7 @@
 
       if (empty($fullname) || empty($username) || empty($email) || empty($password) || empty($cpassword) ) {
         // code...
-        echo '<div class= "alert alert-warning">Please provide your valid data.</div>';
+        // echo '<div class= "alert alert-warning">Please provide your valid data.</div>';
       }
       else {
         if ($password == $cpassword) {
@@ -141,19 +80,13 @@
       }
 
     ?>
-  </div><!-- /.card -->
-</div>
-<!-- /.register-box -->
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/app.js"></script>
 
-<?php
-  ob_end_flush();
-?>
-</body>
+    <?php
+      ob_end_flush();
+    ?>
+
+  </body>
 </html>

@@ -245,31 +245,45 @@
                           
                           if ($count1 == $max) {
                             # code...
-                            echo "Difficulty Level: 1 (Remembering)" . "<br>";
+                            echo 'Difficulty Category: <span class="badge badge-primary">REMEMBERING</span>' . "<br>";
                           }
                           elseif ($count2 == $max) {
                             # code...
-                            echo "Difficulty Level: 2 (Understanding)" . "<br>";
+                            echo 'Difficulty Category: <span class="badge badge-primary">UNDERSTANDING</span>' . "<br>";
                           }
                           elseif ($count3 == $max) {
                             # code...
-                            echo "Difficulty Level: 3 (Applying)" . "<br>";
+                            echo 'Difficulty Category: <span class="badge badge-primary">APPLYING</span>' . "<br>";
                           }
                           elseif ($count4 == $max) {
                             # code...
-                            echo "Difficulty Level: 4 (Analyzing)" . "<br>";
+                            echo 'Difficulty Category: <span class="badge badge-primary">ANALYZING</span>' . "<br>";
                           }
                           elseif ($count5 == $max) {
                             # code...
-                            echo "Difficulty Level: 5 (Evaluating)" . "<br>";
+                            echo 'Difficulty Category: <span class="badge badge-primary">EVALUATING</span>' . "<br>";
                           }
                           elseif ($count6 == $max) {
                             # code...
-                            echo "Difficulty Level: 6 (Creating)" . "<br>";
+                            echo 'Difficulty Category: <span class="badge badge-primary">CREATING</span>' . "<br>";
                           }
                           else echo "Not Found." . "<br>";
 
-                          echo "Difficulty Percentage: " . round($percentage, 2) . "%";
+                          echo "Difficulty Percentage: " . round($percentage, 2) . "%" . "<br>";
+
+                          if (($percentage >= 0) && ($percentage <= 33) ) {
+                            # code...
+                            echo 'Difficulty Level: <span class="badge badge-success">LOW</span>' . "<br>";
+                          }
+                          elseif (($percentage >= 34) && ($percentage <= 63) ) {
+                            # code...
+                            echo 'Difficulty Level: <span class="badge badge-warning">MEDIUM</span>' . "<br>";
+                          }
+                          elseif ($percentage >= 64 ) {
+                            # code...
+                            echo 'Difficulty Level: <span class="badge badge-danger">HIGH</span>' . "<br>";
+                          }
+                          else echo "Not Found." . "<br>";
 
                         }
                         

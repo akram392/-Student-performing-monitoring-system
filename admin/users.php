@@ -479,7 +479,7 @@
                 $del_image = $_GET['$image'];
               }
 
-              unlink("dist/img/users/$del_image");
+              unlink("dist/img/users/" . $del_image);
 
               // image file name change and move to folder
               $random_number = rand(0, 1000000);
