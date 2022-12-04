@@ -136,9 +136,19 @@
                                     <span class="badge badge-success">Super Admin</span>
                                   <?php
                                 }
+                                elseif ($role == 2) {
+                                  ?>
+                                    <span class="badge badge-primary">Faculty</span>
+                                  <?php
+                                }
+                                elseif ($role == 3) {
+                                  ?>
+                                    <span class="badge badge-warning">Student</span>
+                                  <?php
+                                }
                                 else {
                                   ?>
-                                    <span class="badge badge-danger">New Member</span>
+                                    <span class="badge badge-danger">Member</span>
                                   <?php
                                 }
                               ?>
@@ -253,8 +263,9 @@
                               <select class="form-control" name="role" id="">
                                 <option value="0">Please select user role</option>
                                 <option value="1">Super Admin</option>
-                                <option value="2">New Member</option>
-                                <option value="3">Monitor</option>
+                                <option value="2">Faculty</option>
+                                <option value="3">Student</option>
+                                <option value="4">Member</option>
                               </select>
                           </div>
 
@@ -352,7 +363,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label for="">Username</label>
-                                <input type="text" class="form-control" name="username" autocomplete="off" value="<?php echo $username; ?>" readonly>
+                                <input type="text" class="form-control" name="username" autocomplete="off" value="<?php echo $username; ?>">
                               </div>
 
                               <div class="form-group">
@@ -393,8 +404,9 @@
                                 <select class="form-control" name="role" id="">
                                   <option value="0">Please select user role</option>
                                   <option value="1" <?php if($role == 1){echo "Selected";} ?>>Super Admin</option>
-                                  <option value="2" <?php if($role == 2){echo "Selected";} ?>>New Member</option>
-                                  <option value="2" <?php if($role == 3){echo "Selected";} ?>>Monitor</option>
+                                  <option value="2" <?php if($role == 2){echo "Selected";} ?>>Faculty</option>
+                                  <option value="3" <?php if($role == 3){echo "Selected";} ?>>Student</option>
+                                  <option value="4" <?php if($role == 4){echo "Selected";} ?>>Member</option>
                                 </select>
                             </div>
 
@@ -441,6 +453,7 @@
         if (isset($_POST['update'])) {
           // code...
           $the_update_id    = $_POST['update'];
+          $username         = $_POST['username'];
           $name             = $_POST['name'];
           $email            = $_POST['email'];
           $phone            = $_POST['phone'];
@@ -500,7 +513,7 @@
               }
           }  
           else {
-            $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone', address = '$address', role = '$role' WHERE id = '$the_update_id' ";
+            $sql = "UPDATE users SET name = '$name', username = '$username', email = '$email', phone = '$phone', address = '$address', role = '$role' WHERE id = '$the_update_id' ";
               
               $update_info = mysqli_query($db, $sql);
 

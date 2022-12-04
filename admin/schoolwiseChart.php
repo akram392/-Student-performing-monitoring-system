@@ -117,12 +117,24 @@
                         type: 'bar',
                         data,
                         options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
+                          scales: {
+                              yAxes: [{
+                                  ticks: {
+                                      beginAtZero: true
+                                  }
+                              }]
+                          },
+                          legend: {
+                            display: true,
+                            position: "top",
+                            align: "end"
+                          },
+                          animation:{
+                            duration: 5000,
+                            easing: 'easeInOutBounce'
+                          },
+                          
+                      }
                     };
                     // Render Block
                     const myChart = new Chart(

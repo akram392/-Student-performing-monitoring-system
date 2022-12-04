@@ -28,6 +28,22 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12">
+                <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-5">
+                          <form action="" method="GET">
+                              <div class="input-group mb-3">
+                                  <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
+                                  <button type="submit" class="btn btn-primary ml-2">Search</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+              </div>
+              <div class="col-lg-12">
 
                 <div class="card card-success">
                   <div class="card-header">
@@ -49,39 +65,45 @@
 
                       <?php
 
-                        $sql = " SELECT * FROM courseoutline ";
-                        $all_course_outline = mysqli_query($db, $sql);
-                        $i = 0;
-
-                        while ($row = mysqli_fetch_assoc($all_course_outline)) {
+                        if (isset($_GET['search'])) {
                           // code...
-                          $id                = $row['id'];
-                          $course_id         = $row['course_id'];
-                          $section           = $row['section'];
-                          $semester          = $row['semester'];
-                          $course_outline    = $row['course_outline'];
-                          $i++;
-                          ?>
+                          $filtervalues = $_GET['search'];
+                          $sql = " SELECT * FROM courseoutline WHERE CONCAT(course_id,semester) LIKE '%$filtervalues%' ";
+                          $all_course_outline = mysqli_query($db, $sql);
+                          $i = 0;
 
-                          <tr>
-                            <th scope="row"><?php echo $i; ?></th>
-                            
-                            <td><?php echo $course_id; ?></td>
-                            <td><?php echo $section; ?></td>
-                            <td><?php echo $semester; ?></td>
-                            <td><a href="dist/img/users/<?php echo $course_outline; ?>" target="_blank" id="anchors"><?php echo $course_outline; ?></a></td>
-                            <!-- <td></td> -->
-                            <td>
-                              <div class="btn-group">
-                                <a href="singlepdf.php?PDF=<?php echo $id; ?>">
-                                  <i class="fas fa-download"></i>
-                                </a>
-                              </div>
-                            </td>
+                          while ($row = mysqli_fetch_assoc($all_course_outline)) {
+                            // code...
+                            $id                = $row['id'];
+                            $course_id         = $row['course_id'];
+                            $section           = $row['section'];
+                            $semester          = $row['semester'];
+                            $course_outline    = $row['course_outline'];
+                            $i++;
+                            ?>
 
-                          </tr>
-                          <?php
+                            <tr>
+                              <th scope="row"><?php echo $i; ?></th>
+                              
+                              <td><?php echo $course_id; ?></td>
+                              <td><?php echo $section; ?></td>
+                              <td><?php echo $semester; ?></td>
+                              <td><a href="dist/img/users/<?php echo $course_outline; ?>" target="_blank" id="anchors"><?php echo $course_outline; ?></a></td>
+                              <!-- <td></td> -->
+                              <td>
+                                <div class="btn-group">
+                                  <a href="singlepdf.php?PDF=<?php echo $id; ?>">
+                                    <i class="fas fa-download"></i>
+                                  </a>
+                                </div>
+                              </td>
+
+                            </tr>
+                            <?php
+                          }
                         }
+
+                        
 
                       ?>
 

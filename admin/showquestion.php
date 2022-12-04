@@ -27,6 +27,14 @@
         <section class="content">
           <div class="container-fluid">
             <div class="row">
+              <div class="col-md-5">
+                <form action="" method="GET">
+                    <div class="input-group mb-3">
+                        <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
+                        <button type="submit" class="btn btn-primary ml-2">Search</button>
+                    </div>
+                </form>
+              </div>
               <div class="col-lg-12">
 
                 <div class="card card-success">
@@ -49,33 +57,37 @@
 
                       <?php
 
-                        $sql = " SELECT * FROM questionbank ";
-                        $all_student = mysqli_query($db, $sql);
-                        $i = 0;
-
-                        while ($row = mysqli_fetch_assoc($all_student)) {
+                        if (isset($_GET['search'])) {
                           // code...
-                          $id             = $row['id'];
-                          $course_id      = $row['course_id'];
-                          $section        = $row['section'];
-                          $semester       = $row['semester'];
-                          $question       = $row['question'];
-                          $exam_type      = $row['exam_type'];
-                          $i++;
-                          ?>
+                          $filtervalue = $_GET['search'];
+                          $sql = " SELECT * FROM questionbank WHERE CONCAT(course_id,semester,exam_type) LIKE '%$filtervalue%' ";
+                          $all_question = mysqli_query($db, $sql);
+                          $i = 0;
 
-                          <tr>
-                            <th scope="row"><?php echo $i; ?></th>
-                            
-                            <td><?php echo $course_id; ?></td>
-                            <td><?php echo $section; ?></td>
-                            <td><?php echo $semester; ?></td>
-                            <td><a href="dist/img/users/<?php echo $question; ?>" target="_blank" id="anchor"><?php echo $question; ?></a></td>
-                            <td><?php echo $exam_type; ?></td>
-                            <!-- <td></td> -->
+                          while ($row = mysqli_fetch_assoc($all_question)) {
+                            // code...
+                            $id             = $row['id'];
+                            $course_id      = $row['course_id'];
+                            $section        = $row['section'];
+                            $semester       = $row['semester'];
+                            $question       = $row['question'];
+                            $exam_type      = $row['exam_type'];
+                            $i++;
+                            ?>
 
-                          </tr>
-                          <?php
+                            <tr>
+                              <th scope="row"><?php echo $i; ?></th>
+                              
+                              <td><?php echo $course_id; ?></td>
+                              <td><?php echo $section; ?></td>
+                              <td><?php echo $semester; ?></td>
+                              <td><a href="dist/img/users/<?php echo $question; ?>" target="_blank" id="anchor"><?php echo $question; ?></a></td>
+                              <td><?php echo $exam_type; ?></td>
+                              <!-- <td></td> -->
+
+                            </tr>
+                            <?php
+                          }
                         }
 
                       ?>

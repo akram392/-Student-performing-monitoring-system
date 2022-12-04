@@ -8,11 +8,11 @@
   <head>
     <meta charset="utf-8">
     <title>Animated Login Form | SPMS</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="dist/css/styles.css">
   </head>
   <body id="particles-js" >
     <div class="center">
-      <h1><b>SPMS</b> | Login</h1>
+      <h1><b>SPMS V3</b> | Login</h1>
       <form action="" method="POST">
         <div class="txt_field">
           <input type="email" class="form-control" placeholder="Email" name="email">

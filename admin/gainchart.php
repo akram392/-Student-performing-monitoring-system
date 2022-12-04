@@ -35,17 +35,26 @@
                 
               <?php
 
-                $sql = "SELECT * FROM spiderchart";
-                $all_cat = mysqli_query($db, $sql);
+                $sql = "SELECT * FROM achieve_co_plo";
+                $all_cats = mysqli_query($db, $sql);
                 $i = 0;
 
-                while ($row = mysqli_fetch_assoc($all_cat)) {
+                while ($row = mysqli_fetch_assoc($all_cats)) {
                     // code...
 
-                    $cat_successfully_achieved_per[] = $row['successfully_achieved_per'];
-                    $cat_failed_to_achieve_per[]     = $row['failed_to_achieve_per'];
+                    $co1_f = $row['co1_f'];
+                    $co2_f = $row['co2_f'];
+                    $co3_f = $row['co3_f'];
+                    $co4_f = $row['co4_f'];
+                    $co1_p = $row['co1_p'];
+                    $co2_p = $row['co2_p'];
+                    $co3_p = $row['co3_p'];
+                    $co4_p = $row['co4_p'];
 
                 } 
+
+                // $akram = array($co1_f[],$co2_f[],$co3_f[],$co4_f[]);
+                // $hossain = array($co1_p[],$co2_p[],$co3_p[],$co4_p[]);
 
             ?>
 
@@ -62,8 +71,14 @@ students</h5>
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script>
-                  const cat_successfully_achieved_per = <?php echo json_encode($cat_successfully_achieved_per); ?>;
-                  const cat_failed_to_achieve_per = <?php echo json_encode($cat_failed_to_achieve_per); ?>;
+                  const co1_f = <?php echo json_encode($co1_f); ?>;
+                  const co2_f = <?php echo json_encode($co2_f); ?>;
+                  const co3_f = <?php echo json_encode($co3_f); ?>;
+                  const co4_f = <?php echo json_encode($co4_f); ?>;
+                  const co1_p = <?php echo json_encode($co1_p); ?>;
+                  const co2_p = <?php echo json_encode($co2_p); ?>;
+                  const co3_p = <?php echo json_encode($co3_p); ?>;
+                  const co4_p = <?php echo json_encode($co4_p); ?>;
                   var ctx = document.getElementById('myChart').getContext('2d');
                   var myChart = new Chart(ctx, {
                       type: 'radar',
@@ -71,7 +86,7 @@ students</h5>
                           labels: ['C1', 'C2', 'C3', 'C4', 'P2', 'P3', 'P4', 'P6'],
                           datasets: [{
                               label: 'Successfully achieved',
-                              data: cat_successfully_achieved_per,                                              
+                              data: [co1_p,co2_p,co2_p,co2_p,co1_p,co2_p,co2_p,co2_p],                                              
                               backgroundColor: [
                                   'rgba(255, 51, 253, 0.2)',
                                   'rgba(54, 162, 235, 0.2)',
@@ -95,7 +110,7 @@ students</h5>
                               borderWidth: 3
                           },{
                               label: 'Failed to achieve',
-                              data: cat_failed_to_achieve_per,                                              
+                              data: [co1_p,co2_p,co2_p,co2_p,co1_p,co2_p,co2_p,co2_p],                                              
                               backgroundColor: [
                                   'rgba(255, 206, 86, 0.2)',
                                   'rgba(75, 192, 192, 0.2)',

@@ -9,11 +9,11 @@
   <head>
     <meta charset="utf-8">
     <title>Animated Register Form | SPMS</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="dist/css/styles.css">
   </head>
   <body id="particles-js" >
     <div class="center">
-      <h1><b>SPMS</b> | Register</h1>
+      <h1><b>SPMS V3</b> | Register</h1>
       <form action="" method="POST">
         <div class="txt_field">
           <input type="text" class="form-control" placeholder="Full Name" name="fullname" autocomplete="off">

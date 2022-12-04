@@ -93,7 +93,7 @@
                             ],
                             borderWidth: 1
                         },{
-                            label: 'Enrollment Analysis',
+                            // label: 'Enrollment Analysis',
                             data: total,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
@@ -122,10 +122,21 @@
                         data,
                         options: {
                             scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
+                              yAxes: [{
+                                  ticks: {
+                                      beginAtZero: true
+                                  }
+                              }]
+                          },
+                          legend: {
+                            display: true,
+                            position: "top",
+                            align: "end"
+                          },
+                          animation:{
+                            duration: 5000,
+                            easing: 'easeInOutBounce'
+                          },
                         }
                     };
                     // Render Block
